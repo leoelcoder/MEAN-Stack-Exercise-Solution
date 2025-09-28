@@ -3,6 +3,16 @@
 ## Introducción
 This document shows the implemented solution for the technical challenge explained in this repository:
 [Repo Challenge](https://github.com/dram2093/MEAN-Stack-Exercise-Requirements)
+
+
+### **TL;DR;**
+The test will consist on deploying a three tier app, front end, back end, and database. The front end is an Angular6 app, the back end a NodeJS app, and the database engine is MongoDB.
+- The front end and backend need to be Dockerized.
+- The front end needs to be Internet exposed.
+- The front end needs to be exposed via a load balancer.
+- "High Availability" is required.
+- The solution should be cost effective.
+
 The architecture is based on AWS infrastructure, a backend in Node.js, a frontend in AngularJS, and a MongoDB database. All components (frontend, backend, and DB) were containerized for deployment in a production environment.
 
 The main goal is to demonstrate an operational online app, infrastructure management with IaC tools, and automatic deployment.
@@ -28,11 +38,16 @@ An Application Load Balancer is exposed to the internet, with an AWS ACM Certifi
 An ECS Cluster was created with Service Discovery (Cloud Map) to generate local domains for the backend and database containers.
 
 The frontend was deployed in containers using the ECS Fargate service and attached to the Application Load Balancer using a target group.
+During deployment a *Docker image* is generate and pushed to the private repository in AWS ECR service.
 
 The backend and database (MongoDB) were also deployed in containers using the ECS Fargate service, but these resources are not exposed to the Application Load Balancer. Local domains were generated so the frontend can communicate with the backend through its own local domain, and the backend can communicate with the database using a local domain as well.
 
+The backend  *Docker image* is generate and pushed to the private repository in AWS ECR service.
+
+> The  docker image used to deploy **mongodb** was pulled from the aws public registry, this was achieve in this way just for demo pourposes.
+
 #### Repositorio de IaC
-[CKD infrastructure repository ](https://github.com/leoelcoder/mean-stack-exercise-infrastructure)
+[CDK infrastructure repository ](https://github.com/leoelcoder/mean-stack-exercise-infrastructure)
 
 
 ##### How to deploy
